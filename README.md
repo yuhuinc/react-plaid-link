@@ -7,7 +7,7 @@ integration with the [Plaid Link drop-in module](https://plaid.com/docs/link/)
 ## Install
 
 ```
-npm install react-plaid-link --save
+npm install yuhu-react-plaid-link --save
 ```
 
 ## Example Usage

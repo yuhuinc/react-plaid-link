@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import Script from 'react-load-script';
 import PropTypes from 'prop-types';
 import FlatButton from 'material-ui/FlatButton';
-import { colors } from 'helpers/ColorHelper';
 
 const style = {
   button: {
-    color: colors.RED,
+    color: '#ff3434',
     height: '40px',
     padding: '0 15px',
   },

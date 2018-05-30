@@ -1,7 +1,7 @@
 {
-  "name": "react-plaid-link",
+  "name": "yuhu-react-plaid-link",
   "version": "1.0.2",
-  "description": "A React component for Plaid Link",
+  "description": "A Yuhu-Customized React component for Plaid Link",
   "files": [
     "dist/",
     "lib/",
@@ -27,7 +27,8 @@
   },
   "dependencies": {
     "prerelease": "^0.0.0",
-    "react-load-script": "0.0.6"
+    "react-load-script": "0.0.6",
+    "material-ui": "0.19.2"
   },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0 || ^16",
@@ -57,8 +58,7 @@
     "xyz": "0.5.x"
   },
   "scripts": {
-    "build": "babel -d dist/ src/",
-    "prepare": "npm run build"
+    "build": "babel -d dist/ src/"
   },
   "tags": [
     "react",
