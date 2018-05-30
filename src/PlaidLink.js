@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
 import Script from 'react-load-script';
 import PropTypes from 'prop-types';
+import FlatButton from 'material-ui/FlatButton';
+import { colors } from 'helpers/ColorHelper';
 
-
-
-class PlaidLink extends Component {
+const style = {
+  button: {
+    color: colors.RED,
+    height: '40px',
+    padding: '0 15px',
+  },
+};
+// https://github.com/pbernasconi/react-plaid-link
+export default class PlaidLink extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,6 +26,10 @@ class PlaidLink extends Component {
     this.handleLinkOnLoad = this.handleLinkOnLoad.bind(this);
     this.handleOnClick = this.handleOnClick.bind(this);
   }
+
+  handleOnExit = () => {
+    // handle the case when your user exits Link
+  };
 
   static defaultProps = {
     apiVersion: 'v2',
@@ -37,7 +49,7 @@ class PlaidLink extends Component {
   static propTypes = {
     // ApiVersion flag to use new version of Plaid API
     apiVersion: PropTypes.string,
-    
+
     // Displayed once a user has successfully linked their account
     clientName: PropTypes.string.isRequired,
 
@@ -56,8 +68,8 @@ class PlaidLink extends Component {
     // auth, identity, income, transactions
     product: PropTypes.arrayOf(
       PropTypes.oneOf([
-        'connect',  // legacy product name
-        'info',     // legacy product name
+        'connect', // legacy product name
+        'info', // legacy product name
         'auth',
         'identity',
         'income',
@@ -77,11 +89,6 @@ class PlaidLink extends Component {
     // Specify a webhook to associate with a user.
     webhook: PropTypes.string,
 
-    // A function that is called when a user has successfully onboarded their
-    // account. The function should expect two arguments, the public_key and a
-    // metadata object
-    onSuccess: PropTypes.func.isRequired,
-
     // A function that is called when a user has specifically exited Link flow
     onExit: PropTypes.func,
 
@@ -94,12 +101,15 @@ class PlaidLink extends Component {
     // See
     onEvent: PropTypes.func,
 
+    // A success function called on succesful flow in Link
+    onSuccess: PropTypes.func,
+
     // Button Styles as an Object
     style: PropTypes.object,
 
     // Button Class names as a String
     className: PropTypes.string,
-  }
+  };
 
   onScriptError() {
     console.error('There was an issue loading the link-initialize.js script');
@@ -111,9 +121,9 @@ class PlaidLink extends Component {
       clientName: this.props.clientName,
       env: this.props.env,
       key: this.props.publicKey,
-      onExit: this.props.onExit,
+      onExit: this.handleOnExit,
       onLoad: this.handleLinkOnLoad,
-      onEvent: this.props.onEvent,
+      onEvent: this.onEvent,
       onSuccess: this.props.onSuccess,
       product: this.props.product,
       selectAccount: this.props.selectAccount,
@@ -150,20 +160,20 @@ class PlaidLink extends Component {
   render() {
     return (
       <div>
-        <button
+        <FlatButton
+          hoverColor="grey"
+          style={style.button}
           onClick={this.handleOnClick}
           disabled={this.state.disabledButton}
-          style={this.props.style}
-          className={this.props.className}>
+        >
           {this.props.children}
-        </button>
+        </FlatButton>
         <Script
           url={this.state.initializeURL}
           onError={this.onScriptError}
-          onLoad={this.onScriptLoaded} />
+          onLoad={this.onScriptLoaded}
+        />
       </div>
     );
   }
 }
-
-export default PlaidLink;
