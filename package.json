@@ -26,6 +26,7 @@
     "example": "examples"
   },
   "dependencies": {
+    "prerelease": "^0.0.0",
     "react-load-script": "0.0.6"
   },
   "peerDependencies": {
@@ -56,7 +57,8 @@
     "xyz": "0.5.x"
   },
   "scripts": {
-    "build": "babel -d dist/ src/"
+    "build": "babel -d dist/ src/",
+    "prepare": "npm run build"
   },
   "tags": [
     "react",
